@@ -6,7 +6,15 @@ let tweets = [];
 //eventos
 addEventListener();
 function addEventListener() {
-    formulario.addEventListener('submit', agregarTweet)
+    //cargar el fomulario previo
+    formulario.addEventListener('submit', agregarTweet);
+    //cargar el localStorage
+    document.addEventListener('DOMContentLoaded', () =>{
+            tweets = JSON.parse(localStorage.getItem('tweets')) || [];
+            console.log(tweets);
+            crearHTML()
+
+    });
 }
 
 //funciones
@@ -57,8 +65,11 @@ function crearHTML() {
             listaTweests.appendChild(li);
         });
     }
+    agregarLocalStorage();
 }
-
+function agregarLocalStorage() {
+    localStorage.setItem('tweets', JSON.stringify(tweets));// cambiar el arrglo a un string para local storage
+}
 //limpiar html
 function limpiarHtml() {
     while (listaTweests.firstChild) {
